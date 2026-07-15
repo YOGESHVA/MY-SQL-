@@ -1,0 +1,116 @@
+Differences between File Management Systems and Data base Management System
+----------------------------------------------------------------------------
+1.High Data redundancy (duplicate data)
+Reduce data redundancy 
+2.difficult to maintain and update
+easy to maintain and update
+3.Security is limited
+provides strong security mechanism
+
+4.data sharing is difficult
+multiple users can access data simultaneously
+
+5.no relationship between files
+supports relationship between tables
+
+6.backup and recovery is difficult 
+provides backup and recovery features.
+
+7.suitable for small applications
+suitable for small, medium and large applications
+
+Differences between File  Systems and Data base Management System
+-----------------------------------------------------------------
+a file system store data in separate files may lead to data 
+redundancy, and security issues. A DBMS stores data in a structured manner using tables,
+reduces redundancy, provides security, supports multiple users, and ensures 
+data consistency and integrity 
+
+what is Data, field, record, database
+-------------------------------------
+Data: It means raw facts or figures without context
+example:101,yogesh,6000,hyd
+Field: smallest unit of data in database(column/attribute)
+example: empid, empname, emsalary, empaddress
+
+Record: collection of related fields(row/tuple)
+example:(101,yogesh,6000,hyd)
+
+database: organized collection of related records stored together 
+example: in employees database contain all employee details.
+
+what is DBMS
+a DBMS is a software used to create, store, retrieve, update and mange databases.
+
+Client-server architecture
+-------------------------
+-------------------------
+In client-server arch they have 3 components such as
+client
+server
+protocol
+
+Client: The role of the client in client server arch is send request to server
+and to get response from the server
+
+Server: server is a software the role of the server in client-server-arch is to take
+request from clients if the request is valid response it will generate some 
+response we can handover that response to client. If client request is not valid 
+request then it will raise the errors.
+
+protocol
+----------------
+It has a set of rules and regulations the role of the protocol in client-server
+arch is to send request from client to server
+
+Data Models in DBMS
+-------------------
+def :a data  model defines how data is stored, organized and manipulated in a database
+
+1.Physical Data Model
+---------------------
+def: describes how data is physically stored in storage devices.
+audience : Database Administrators.
+
+2.Logical Data Model 
+--------------------
+defines the structure of data (entities, attributes ,relationships)
+independent of physical storage area
+
+audience: developers and data base architects.
+
+3.Hierarchical Data Model
+-------------------------
+data is represented as a tree structure.(parent child relationship).
+
+example: -company-->departments-->employees.
+
+4.Network Data Model
+--------------------
+data is represented as graph with records (nodes) and relationship (edges)
+
+example: student enrolled in multiple courses, courses teach by multiple professors 
+
+5.Relation Data Models(RDBMS)
+-----------------------------
+data is stored in tables (relations) with rows (tuple) and
+columns(attributes)
+example:
+student(id, name, marks, dept_id)
+departments(dept_id, dept_name)
+------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
