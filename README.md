@@ -386,4 +386,516 @@ Stores data in tables consisting of rows (tuples) and columns (attributes).
 * MySQL Installation
 * CRUD Operations
 * SQL Queries (DDL, DML, DCL, TCL)
+  # 📅 Day 3 - SQL Fundamentals
+
+## 📚 Topics Covered
+
+### 🏷️ SQL Identifiers
+
+SQL Identifiers are names used to identify database objects such as:
+
+* Database Names
+* Table Names
+* Column Names
+* View Names
+* Index Names
+* Constraints
+* Triggers
+* Stored Procedures
+
+### Rules for SQL Identifiers
+
+1. Only the following characters are allowed:
+
+   * `A-Z`
+   * `a-z`
+   * `0-9`
+   * `_`
+   * `$`
+2. An identifier must begin with a letter or an underscore (`_`).
+3. Reserved keywords cannot be used as identifiers.
+4. Spaces are not allowed in identifiers.
+5. Identifiers are generally case-sensitive depending on the database system.
+6. Maximum identifier length is typically **15 characters** (may vary by DBMS).
+
+---
+
+# 🗄️ What is SQL?
+
+**SQL (Structured Query Language)** is a standardized programming language used to manage and manipulate relational databases.
+
+It allows users to:
+
+* Create databases and tables.
+* Insert, update, and delete records.
+* Retrieve data.
+* Manage permissions.
+* Control transactions.
+
+SQL is a **declarative language**, meaning users specify **what** data they want rather than **how** the database should retrieve it.
+
+---
+
+# 📖 SQL Commands
+
+SQL commands are divided into five categories.
+
+---
+
+## 1️⃣ DDL (Data Definition Language)
+
+DDL commands define and modify database objects.
+
+### Commands
+
+### CREATE
+
+Creates new database objects.
+
+**Examples**
+
+* Database
+* Table
+* View
+* Index
+
+---
+
+### ALTER
+
+Modifies the structure of an existing table.
+
+Operations include:
+
+* Add Column
+* Drop Column
+* Rename Column
+* Modify Data Type
+* Add or Remove Constraints
+
+---
+
+### DROP
+
+Deletes database objects permanently.
+
+Examples:
+
+* Database
+* Table
+* View
+* Index
+
+---
+
+### TRUNCATE
+
+Deletes all records from a table without deleting the table structure.
+
+---
+
+### RENAME
+
+Renames database objects.
+
+---
+
+# 2️⃣ DML (Data Manipulation Language)
+
+Used to manage data stored inside tables.
+
+### INSERT
+
+Adds new records to a table.
+
+### UPDATE
+
+Modifies existing records based on a condition.
+
+### DELETE
+
+Removes records based on a condition.
+
+### LOCK
+
+Controls concurrent access by locking tables during modifications.
+
+---
+
+# 3️⃣ DCL (Data Control Language)
+
+Used to control permissions and access.
+
+### GRANT
+
+Provides permissions such as:
+
+* SELECT
+* INSERT
+* UPDATE
+* DELETE
+* ALL PRIVILEGES
+
+### REVOKE
+
+Removes previously granted permissions from users or roles.
+
+---
+
+# 4️⃣ TCL (Transaction Control Language)
+
+Manages transactions to maintain data integrity.
+
+### COMMIT
+
+Permanently saves all changes made during the current transaction.
+
+### ROLLBACK
+
+Undoes changes and restores the database to the last committed state or a savepoint.
+
+### SAVEPOINT
+
+Creates a checkpoint within a transaction to allow partial rollback.
+
+---
+
+# 5️⃣ DQL (Data Query Language)
+
+Used to retrieve data from database tables.
+
+### SELECT
+
+Retrieves data from one or more tables based on specified columns and conditions.
+
+This is the most frequently used SQL command.
+
+---
+
+# 💻 Basic SQL Syntax
+
+## Create a Database
+
+```sql
+CREATE DATABASE database_name;
+```
+
+### Example
+
+```sql
+CREATE DATABASE pfs4;
+```
+
+---
+
+## Drop a Database
+
+```sql
+DROP DATABASE database_name;
+```
+
+### Example
+
+```sql
+DROP DATABASE pfs4;
+```
+
+---
+
+## Create a Table
+
+```sql
+CREATE TABLE table_name (
+    column_name datatype(size) constraint,
+    column_name datatype(size),
+    column_name datatype(size),
+    column_name datatype(size),
+    column_name datatype(size)
+);
+```
+
+### Example
+
+```sql
+CREATE TABLE Employee (
+    EmpID INT PRIMARY KEY,
+    EmpName VARCHAR(50),
+    Salary DECIMAL(10,2),
+    Department VARCHAR(30),
+    City VARCHAR(30)
+);
+```
+
+---
+
+# 🎯 Key Takeaways
+
+* Learned SQL Identifiers and their naming rules.
+* Understood the purpose of SQL.
+* Studied the five categories of SQL commands:
+
+  * DDL
+  * DML
+  * DCL
+  * TCL
+  * DQL
+* Learned how to create and drop databases.
+* Learned the syntax for creating tables.
+
+---
+
+# 🚀 Day 3 Complete
+
+### Topics Learned
+
+* ✅ SQL Identifiers
+* ✅ Introduction to SQL
+* ✅ DDL Commands
+* ✅ DML Commands
+* ✅ DCL Commands
+* ✅ TCL Commands
+* ✅ DQL Commands
+* ✅ Create Database
+* ✅ Drop Database
+* ✅ Create Table
+
+### Next Topics
+
+* SQL Data Types
+* Constraints
+* INSERT Statement
+* SELECT Statement
+* WHERE Clause
+* ORDER BY
+* Aggregate Functions
+# 📅 Day 4 - SQL Data Types & ALTER TABLE
+
+## 📚 Topics Covered
+
+### 🗄️ Database Operations
+
+* Created new databases.
+* Displayed available databases using `SHOW DATABASES`.
+* Switched between databases using `USE`.
+* Dropped databases using `DROP DATABASE`.
+
+---
+
+# 📋 Table Creation
+
+Created an **EMPLOYEES** table using different SQL data types.
+
+### Data Types Learned
+
+* `CHAR`
+* `VARCHAR`
+* `INT`
+* `DATE`
+* `TINYTEXT`
+
+Also learned how to display table structure using:
+
+* `DESC table_name`
+* `SHOW COLUMNS FROM table_name`
+
+---
+
+# 📊 SQL Data Types
+
+### Numeric Data Types
+
+* TINYINT
+* SMALLINT
+* INT
+* DECIMAL
+
+### Character Data Types
+
+* CHAR
+* VARCHAR
+* TINYTEXT
+
+### Date & Time Data Types
+
+* DATE
+
+### Special Data Types
+
+* ENUM
+* SET
+
+---
+
+# 🔄 ALTER TABLE
+
+Learned different operations using the `ALTER TABLE` command.
+
+## ➕ Add Column
+
+Added new columns to an existing table.
+
+Examples:
+
+* LOCATION
+* EMAIL
+* PHONE_NUMBER
+* BONUS
+* STATUS
+* COMPANY_NAME
+* QUALIFICATION
+
+---
+
+## 📍 Add Column at Specific Position
+
+Used:
+
+* `FIRST`
+* `AFTER column_name`
+
+---
+
+## ✏️ Modify Column
+
+Modified:
+
+* Data type
+* Column size
+
+Examples:
+
+* Changed `FNAME` size.
+* Updated `SALARY` datatype to `DECIMAL(20,3)`.
+
+---
+
+## 🔄 Rename Column
+
+Used the `CHANGE` command to rename columns.
+
+Examples:
+
+* FNAME → FIRSTNAME
+* LNAME → LASTNAME
+* EMP_NAME → EMPLOYEE_NAME
+* JOINING_DATE → DATE_OF_JOINING
+
+---
+
+## ❌ Drop Column
+
+Removed unnecessary columns.
+
+Examples:
+
+* BONUS
+* PHONE_NUMBER
+* PEFID
+* LOCATION
+
+---
+
+## 📝 Rename Table
+
+Renamed tables using:
+
+```sql
+ALTER TABLE old_table_name
+RENAME TO new_table_name;
+```
+
+Example:
+
+* EMPLOYEES → CODEGNAN_EMP
+* CODEGNAN_EMP → EMPLOYEES
+* COMPANY_STAFF → STAFF_RECORDS
+* STAFF_RECORDS → COMPANY_STAFF
+
+---
+
+# 👨‍💻 Company Staff Table
+
+Created a sample **COMPANY_STAFF** table using multiple SQL data types.
+
+### Columns Included
+
+* Company Name
+* Employee ID
+* Employee Name
+* Qualification
+* Age
+* Experience
+* Gender
+* Address
+* Salary
+* Department
+* Status
+* Skills
+* Last Updated
+* Date of Joining
+* Email
+
+---
+
+# ⚠️ Errors Practiced
+
+While learning SQL, I also encountered and corrected several common errors:
+
+* Misspelled SQL commands.
+* Invalid database names.
+* Missing commas.
+* Incorrect SQL syntax.
+* Wrong data type names.
+* Incorrect `ALTER TABLE` syntax.
+* Attempting to query non-existing tables.
+
+Learning from these mistakes helped me better understand SQL syntax and debugging.
+
+---
+
+# 🎯 Key Takeaways
+
+* Learned SQL Data Types.
+* Created databases and tables.
+* Explored `SHOW`, `DESC`, and `SHOW COLUMNS`.
+* Practiced `ALTER TABLE` extensively.
+* Added, modified, renamed, and dropped columns.
+* Renamed tables.
+* Worked with `ENUM` and `SET` data types.
+* Improved SQL debugging skills by fixing syntax errors.
+
+---
+
+# 🚀 Day 4 Complete
+
+### Topics Learned
+
+* ✅ SQL Data Types
+* ✅ CREATE DATABASE
+* ✅ CREATE TABLE
+* ✅ SHOW DATABASES
+* ✅ SHOW TABLES
+* ✅ DESC
+* ✅ SHOW COLUMNS
+* ✅ ALTER TABLE
+* ✅ ADD COLUMN
+* ✅ MODIFY COLUMN
+* ✅ CHANGE COLUMN
+* ✅ DROP COLUMN
+* ✅ RENAME TABLE
+* ✅ ENUM
+* ✅ SET
+* ✅ SQL Error Debugging
+
+### Next Topics
+
+* INSERT Statement
+* UPDATE Statement
+* DELETE Statement
+* SELECT Statement
+* WHERE Clause
+* ORDER BY
+* Aggregate Functions
+* Constraints (Primary Key, Foreign Key, Unique, Check)
+
 
