@@ -1,0 +1,349 @@
+DML(data manipulation language)
+-------------------------------
+manages data stored with in database objects.
+insert
+------by using this command we can insert some records into table.
+ INSERT INTO EMPLOYEES(EMPID,FIRSTNAME,LASTNAME,AGE,DOJ,ADDREESS,DEPT)VALUES
+    -> ('E0001','MALLI','ARJUN','2024-04-20','HYD','JAVA');
+
+update
+------we can update the record based on some condition.
+mysql> --SYN:Update Table-Name set column-Name=update-value where some condition
+
+
+delete
+------we can delete some record based on some condition.
+Delete:Delete from table_name where condition;
+
+
+lock
+---- controls concurrency by locking a table restrict accesses from other transactions while it is being modified
+
+
+mysql> show tables;
+ERROR 1046 (3D000): No database selected
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| common             |
+| employees          |
+| information_schema |
+| movie              |
+| movies             |
+| mysql              |
+| performance_schema |
+| pfs4               |
+| sale               |
+| sql_project        |
+| student            |
+| yogesh             |
+| yogi               |
++--------------------+
+13 rows in set (4.089 sec)
+
+mysql> uses pfs4;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'uses pfs4' at line 1
+mysql> USE pfs4
+Database changed
+mysql> use pfs4;
+Database changed
+mysql> DESC EMPLOYEES;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| EMPID     | char(5)     | YES  |     | NULL    |       |
+| FIRSTNAME | varchar(30) | YES  |     | NULL    |       |
+| LASTNAME  | varchar(30) | YES  |     | NULL    |       |
+| AGE       | int         | YES  |     | NULL    |       |
+| DOJ       | date        | YES  |     | NULL    |       |
+| ADDREESS  | tinytext    | YES  |     | NULL    |       |
+| DEPT      | varchar(50) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+7 rows in set (2.124 sec)
+
+mysql> INSERT INTO EMPLOYEES(EMPID,FIRSTNAME,LASTNAME,AGE,DOJ,ADDREESS,DEPT)VALUES
+    -> ('E0001','MALLI','ARJUN','2024-04-20','HYD','JAVA');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT INTO EMPLOYEES(EMPID,FIRSTNAME,LASTNAME,AGE,DOJ,ADDREESS,DEPT)VALUES
+    -> ('E0001','MALLI','ARJUN',27,'2024-04-20','HYD','JAVA');
+Query OK, 1 row affected (14.063 sec)
+
+mysql> SELCET * FROM EMPLOYEES;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELCET * FROM EMPLOYEES' at line 1
+mysql> SELECT * FROM EMPLOYEES;
++-------+-----------+----------+------+------------+----------+------+
+| EMPID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDREESS | DEPT |
++-------+-----------+----------+------+------------+----------+------+
+| E0001 | MALLI     | ARJUN    |   27 | 2024-04-20 | HYD      | JAVA |
++-------+-----------+----------+------+------------+----------+------+
+1 row in set (0.007 sec)
+
+mysql> INSERT INTO EMPLOYEES(EMPID,FIRSTNAME,LASTNAME,AGE,DOJ,ADDREESS,DEPT)VALUES
+    -> ('E0002','ARJUN','SARKAR',17,'2020-07-20','BNG','SALES'),
+    -> ('E0003','MAHESH','BABU',37,'2020-10-10','VIJ','HR');
+Query OK, 2 rows affected (13.409 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM EMPLOYEES;
++-------+-----------+----------+------+------------+----------+-------+
+| EMPID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDREESS | DEPT  |
++-------+-----------+----------+------+------------+----------+-------+
+| E0001 | MALLI     | ARJUN    |   27 | 2024-04-20 | HYD      | JAVA  |
+| E0002 | ARJUN     | SARKAR   |   17 | 2020-07-20 | BNG      | SALES |
+| E0003 | MAHESH    | BABU     |   37 | 2020-10-10 | VIJ      | HR    |
++-------+-----------+----------+------+------------+----------+-------+
+3 rows in set (0.007 sec)
+
+mysql> INSERT INTO EMPLOYEES(EMPID,FIRSTNAME,LASTNAME,AGE,DOJ,ADDREESS,DEPT)VALUES
+    -> ('E004','SAI','KIRAN',29,'2018-08-12','PUNE','ADMIN'),
+    -> ('E005','SAI','VARDAN',23,''2024-03-18','HYD','PYTHON');
+    '> ^C
+mysql> INSERT INTO EMPLOYEES(EMPID,FIRSTNAME,LASTNAME,AGE,DOJ,ADDREESS,DEPT)VALUES
+    -> ('E0004','SAI','KIRAN',29,'2018-08-12','PUNE','ADMIN'),
+    -> ('E0005','SAI','VARDAN',23,'2024-03-18','HYD','PYTHON');
+Query OK, 2 rows affected (1.530 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO EMPLOYEES
+    -> VALUES
+    -> ('E0006','RAHUL','SHARMA',11,'2026-03-18','NODIA','DEV'),
+    -> ('E0007','NANDINI','REDDY',15,'2021-07-07','DELHI','QA');
+Query OK, 2 rows affected (1.460 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM EMPLOYEES;
++-------+-----------+----------+------+------------+----------+--------+
+| EMPID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDREESS | DEPT   |
++-------+-----------+----------+------+------------+----------+--------+
+| E0001 | MALLI     | ARJUN    |   27 | 2024-04-20 | HYD      | JAVA   |
+| E0002 | ARJUN     | SARKAR   |   17 | 2020-07-20 | BNG      | SALES  |
+| E0003 | MAHESH    | BABU     |   37 | 2020-10-10 | VIJ      | HR     |
+| E0004 | SAI       | KIRAN    |   29 | 2018-08-12 | PUNE     | ADMIN  |
+| E0005 | SAI       | VARDAN   |   23 | 2024-03-18 | HYD      | PYTHON |
+| E0006 | RAHUL     | SHARMA   |   11 | 2026-03-18 | NODIA    | DEV    |
+| E0007 | NANDINI   | REDDY    |   15 | 2021-07-07 | DELHI    | QA     |
++-------+-----------+----------+------+------------+----------+--------+
+7 rows in set (0.008 sec)
+
+mysql> INSERT INTO EMPLOYEES(EMPID,FIRSTNAME,DOJ,DEPT)
+    -> VALUES
+    -> ('E0008','ARUN','1997-05-07','MARETING');
+Query OK, 1 row affected (0.976 sec)
+
+mysql> SELECT * FROM EMPLOYEES;
++-------+-----------+----------+------+------------+----------+----------+
+| EMPID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDREESS | DEPT     |
++-------+-----------+----------+------+------------+----------+----------+
+| E0001 | MALLI     | ARJUN    |   27 | 2024-04-20 | HYD      | JAVA     |
+| E0002 | ARJUN     | SARKAR   |   17 | 2020-07-20 | BNG      | SALES    |
+| E0003 | MAHESH    | BABU     |   37 | 2020-10-10 | VIJ      | HR       |
+| E0004 | SAI       | KIRAN    |   29 | 2018-08-12 | PUNE     | ADMIN    |
+| E0005 | SAI       | VARDAN   |   23 | 2024-03-18 | HYD      | PYTHON   |
+| E0006 | RAHUL     | SHARMA   |   11 | 2026-03-18 | NODIA    | DEV      |
+| E0007 | NANDINI   | REDDY    |   15 | 2021-07-07 | DELHI    | QA       |
+| E0008 | ARUN      | NULL     | NULL | 1997-05-07 | NULL     | MARETING |
++-------+-----------+----------+------+------------+----------+----------+
+8 rows in set (0.007 sec)
+
+mysql> INSERT INTO EMPLOYEES SET
+    -> EMID='E0009',
+    -> FIRSTNAME='SUDHEER',
+    -> LASTNAME='KUMAR',
+    -> AGE=32,
+    -> DOJ='1995-10-31',
+    -> ADDRESS='MUMBAI',
+    -> DEPT='SALES';
+ERROR 1054 (42S22): Unknown column 'EMID' in 'field list'
+mysql> INSERT INTO EMPLOYEES SET
+    -> EMPID='E0009',
+    -> FIRSTNAME='SUDHEER',
+    -> LASTNAME='KUMAR',
+    -> AGE=32,
+    -> DOJ='1995-10-31',
+    -> ADDRESS='MUMBAI',
+    -> DEPT='SALES';
+ERROR 1054 (42S22): Unknown column 'ADDRESS' in 'field list'
+mysql> INSERT INTO EMPLOYEES SET
+    -> EMPID='E0009',
+    -> FIRSTNAME='SUDHEER',
+    -> LASTNAME='KUMAR',
+    -> ADDREESS='MUMBAI',
+    -> AGE=32,
+    -> LASTNAME='KUMAR',
+    -> DOJ='1995-10-31',
+    -> ^C
+mysql> INSERT INTO EMPLOYEES SET
+    -> EMPID='E0009',
+    -> FIRSTNAME='SUDHEER',
+    -> LASTNAME='KUMAR',
+    -> AGE=32,
+    -> DOJ='1995-10-31',
+    -> ADDREESS='MUMBAI',
+    -> DEPT='SALES';
+Query OK, 1 row affected (0.734 sec)
+
+mysql> SELECT * FROM EMPLOYEESS;
+ERROR 1146 (42S02): Table 'pfs4.employeess' doesn't exist
+mysql> SELECT * FROM EMPLOYEES;
++-------+-----------+----------+------+------------+----------+----------+
+| EMPID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDREESS | DEPT     |
++-------+-----------+----------+------+------------+----------+----------+
+| E0001 | MALLI     | ARJUN    |   27 | 2024-04-20 | HYD      | JAVA     |
+| E0002 | ARJUN     | SARKAR   |   17 | 2020-07-20 | BNG      | SALES    |
+| E0003 | MAHESH    | BABU     |   37 | 2020-10-10 | VIJ      | HR       |
+| E0004 | SAI       | KIRAN    |   29 | 2018-08-12 | PUNE     | ADMIN    |
+| E0005 | SAI       | VARDAN   |   23 | 2024-03-18 | HYD      | PYTHON   |
+| E0006 | RAHUL     | SHARMA   |   11 | 2026-03-18 | NODIA    | DEV      |
+| E0007 | NANDINI   | REDDY    |   15 | 2021-07-07 | DELHI    | QA       |
+| E0008 | ARUN      | NULL     | NULL | 1997-05-07 | NULL     | MARETING |
+| E0009 | SUDHEER   | KUMAR    |   32 | 1995-10-31 | MUMBAI   | SALES    |
++-------+-----------+----------+------+------------+----------+----------+
+9 rows in set (0.007 sec)
+
+mysql> --SYN:Update Table-Name set column-Name=update-value where some condition
+    -> ^C
+mysql> UPDATE EMPLOYEES SET LNAME = 'SHARMA' WHERE EMPID = 'E0007';
+ERROR 1054 (42S22): Unknown column 'LNAME' in 'field list'
+mysql> UPDATE EMPLOYEES SET LASTNAME = 'SHARMA' WHERE EMPTID = 'E0007';
+ERROR 1054 (42S22): Unknown column 'EMPTID' in 'where clause'
+mysql> UPDATE EMPLOYEES SET LASTNAME = 'SHARMA' WHERE EMPID = 'E0007';
+Query OK, 1 row affected (1.783 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM EMPLOYEESS;
+ERROR 1146 (42S02): Table 'pfs4.employeess' doesn't exist
+mysql> SELECT * FROM EMPLOYEESS;
+ERROR 1146 (42S02): Table 'pfs4.employeess' doesn't exist
+mysql> SELECT * FROM EMPLOYEESS;
+ERROR 1146 (42S02): Table 'pfs4.employeess' doesn't exist
+mysql> UPDATE LASTNAME = 'KUMAR',AGE = 34,ADDREESS = 'VSP' WHERE EMPID = 'E0008';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '= 'KUMAR',AGE = 34,ADDREESS = 'VSP' WHERE EMPID = 'E0008'' at line 1
+mysql> select * from EMPLOYEESS;
+ERROR 1146 (42S02): Table 'pfs4.employeess' doesn't exist
+mysql> USE PFS4
+Database changed
+mysql> SELECT * FROM EMPLOYEESS;
+ERROR 1146 (42S02): Table 'pfs4.employeess' doesn't exist
+mysql> SELECT*FROM EMPLOYEESS;
+ERROR 1146 (42S02): Table 'pfs4.employeess' doesn't exist
+mysql> SHOW TABLES;
++----------------+
+| Tables_in_pfs4 |
++----------------+
+| company_staff  |
+| employees      |
++----------------+
+2 rows in set (0.188 sec)
+
+mysql> SELECT * FROM EMPLOYEES;
++-------+-----------+----------+------+------------+----------+----------+
+| EMPID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDREESS | DEPT     |
++-------+-----------+----------+------+------------+----------+----------+
+| E0001 | MALLI     | ARJUN    |   27 | 2024-04-20 | HYD      | JAVA     |
+| E0002 | ARJUN     | SARKAR   |   17 | 2020-07-20 | BNG      | SALES    |
+| E0003 | MAHESH    | BABU     |   37 | 2020-10-10 | VIJ      | HR       |
+| E0004 | SAI       | KIRAN    |   29 | 2018-08-12 | PUNE     | ADMIN    |
+| E0005 | SAI       | VARDAN   |   23 | 2024-03-18 | HYD      | PYTHON   |
+| E0006 | RAHUL     | SHARMA   |   11 | 2026-03-18 | NODIA    | DEV      |
+| E0007 | NANDINI   | SHARMA   |   15 | 2021-07-07 | DELHI    | QA       |
+| E0008 | ARUN      | NULL     | NULL | 1997-05-07 | NULL     | MARETING |
+| E0009 | SUDHEER   | KUMAR    |   32 | 1995-10-31 | MUMBAI   | SALES    |
++-------+-----------+----------+------+------------+----------+----------+
+9 rows in set (0.007 sec)
+
+mysql> UPDATE EMPLOYEES SET  LASTNAME = 'KUMAR',AGE = 34,ADDREESS = 'VSP' WHERE EMPID = 'E0008';
+Query OK, 1 row affected (0.736 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM EMPLOYEES;
++-------+-----------+----------+------+------------+----------+----------+
+| EMPID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDREESS | DEPT     |
++-------+-----------+----------+------+------------+----------+----------+
+| E0001 | MALLI     | ARJUN    |   27 | 2024-04-20 | HYD      | JAVA     |
+| E0002 | ARJUN     | SARKAR   |   17 | 2020-07-20 | BNG      | SALES    |
+| E0003 | MAHESH    | BABU     |   37 | 2020-10-10 | VIJ      | HR       |
+| E0004 | SAI       | KIRAN    |   29 | 2018-08-12 | PUNE     | ADMIN    |
+| E0005 | SAI       | VARDAN   |   23 | 2024-03-18 | HYD      | PYTHON   |
+| E0006 | RAHUL     | SHARMA   |   11 | 2026-03-18 | NODIA    | DEV      |
+| E0007 | NANDINI   | SHARMA   |   15 | 2021-07-07 | DELHI    | QA       |
+| E0008 | ARUN      | KUMAR    |   34 | 1997-05-07 | VSP      | MARETING |
+| E0009 | SUDHEER   | KUMAR    |   32 | 1995-10-31 | MUMBAI   | SALES    |
++-------+-----------+----------+------+------------+----------+----------+
+9 rows in set (0.007 sec)
+
+mysql> UPDATE EMPLOYEES SET DEPT = 'FINANCE','ACCOUNTS','DEVOPS' WHERE EMPID = 'E0001','E0005','E0006';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''ACCOUNTS','DEVOPS' WHERE EMPID = 'E0001','E0005','E0006'' at line 1
+mysql> UPDATE EMPLOYEES SET DEPT = 'FINANCE'  WHERE EMPID = 'E0001'
+    -> ^C
+mysql> UPDATE EMPLOYEES SET DEPT = 'FINANCE'  WHERE EMPID = 'E0001';
+Query OK, 1 row affected (9.701 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE EMPLOYEES SET DEPT = 'ACCOUNTS'  WHERE EMPID = 'E0005';
+Query OK, 1 row affected (3.103 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE EMPLOYEES SET DEPT = 'DEVOPS'  WHERE EMPID = 'E0006';
+Query OK, 1 row affected (25.961 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM EMPLOYEES;
++-------+-----------+----------+------+------------+----------+----------+
+| EMPID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDREESS | DEPT     |
++-------+-----------+----------+------+------------+----------+----------+
+| E0001 | MALLI     | ARJUN    |   27 | 2024-04-20 | HYD      | FINANCE  |
+| E0002 | ARJUN     | SARKAR   |   17 | 2020-07-20 | BNG      | SALES    |
+| E0003 | MAHESH    | BABU     |   37 | 2020-10-10 | VIJ      | HR       |
+| E0004 | SAI       | KIRAN    |   29 | 2018-08-12 | PUNE     | ADMIN    |
+| E0005 | SAI       | VARDAN   |   23 | 2024-03-18 | HYD      | ACCOUNTS |
+| E0006 | RAHUL     | SHARMA   |   11 | 2026-03-18 | NODIA    | DEVOPS   |
+| E0007 | NANDINI   | SHARMA   |   15 | 2021-07-07 | DELHI    | QA       |
+| E0008 | ARUN      | KUMAR    |   34 | 1997-05-07 | VSP      | MARETING |
+| E0009 | SUDHEER   | KUMAR    |   32 | 1995-10-31 | MUMBAI   | SALES    |
++-------+-----------+----------+------+------------+----------+----------+
+9 rows in set (0.007 sec)
+
+mysql> --Delete:Delete from table_name where condition;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '--Delete:Delete from table_name where condition' at line 1
+mysql> -- Delete: Delete from table_name where condtion;
+Query OK, 0 rows affected (0.004 sec)
+
+mysql> delete from EMPLOYEES WHERE FIRSTNAME = 'SAI';
+Query OK, 2 rows affected (0.883 sec)
+
+mysql> Delete from EMPLOYEES WHERE LASTNAME = 'SHARMA';
+Query OK, 2 rows affected (1.634 sec)
+
+mysql> select * from EMPLOYEES;
++-------+-----------+----------+------+------------+----------+----------+
+| EMPID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDREESS | DEPT     |
++-------+-----------+----------+------+------------+----------+----------+
+| E0001 | MALLI     | ARJUN    |   27 | 2024-04-20 | HYD      | FINANCE  |
+| E0002 | ARJUN     | SARKAR   |   17 | 2020-07-20 | BNG      | SALES    |
+| E0003 | MAHESH    | BABU     |   37 | 2020-10-10 | VIJ      | HR       |
+| E0008 | ARUN      | KUMAR    |   34 | 1997-05-07 | VSP      | MARETING |
+| E0009 | SUDHEER   | KUMAR    |   32 | 1995-10-31 | MUMBAI   | SALES    |
++-------+-----------+----------+------+------------+----------+----------+
+5 rows in set (0.007 sec)
+
+mysql> DELETE FROM EMPLOYEES WHERE EMPID = 'E0003';
+Query OK, 1 row affected (0.846 sec)
+
+mysql> select * from EMPLOYEES;
++-------+-----------+----------+------+------------+----------+----------+
+| EMPID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDREESS | DEPT     |
++-------+-----------+----------+------+------------+----------+----------+
+| E0001 | MALLI     | ARJUN    |   27 | 2024-04-20 | HYD      | FINANCE  |
+| E0002 | ARJUN     | SARKAR   |   17 | 2020-07-20 | BNG      | SALES    |
+| E0008 | ARUN      | KUMAR    |   34 | 1997-05-07 | VSP      | MARETING |
+| E0009 | SUDHEER   | KUMAR    |   32 | 1995-10-31 | MUMBAI   | SALES    |
++-------+-----------+----------+------+------------+----------+----------+
+4 rows in set (0.007 sec)
+
+mysql> TRUNCATE TABLE EMPLOYEES;
+Query OK, 0 rows affected (12.885 sec)
+
+mysql> SELECT * FROM EMPLOYEESS;
+ERROR 1146 (42S02): Table 'pfs4.employeess' doesn't exist
+mysql> select * from EMPLOYEES;
