@@ -897,5 +897,387 @@ Learning from these mistakes helped me better understand SQL syntax and debuggin
 * ORDER BY
 * Aggregate Functions
 * Constraints (Primary Key, Foreign Key, Unique, Check)
+# 📅 Day 5 - SQL DML Commands
+
+## 📚 Topics Covered
+
+### 🔹 What is DML?
+
+**DML (Data Manipulation Language)** is used to manage and manipulate the data stored in database tables.
+
+It allows users to:
+
+* Insert new records
+* Update existing records
+* Delete records
+* Retrieve data
+
+---
+
+# 📥 INSERT Command
+
+The `INSERT` statement is used to add new records into a table.
+
+### Syntax
+
+```sql
+INSERT INTO table_name (column1, column2, column3)
+VALUES (value1, value2, value3);
+```
+
+### Example
+
+```sql
+INSERT INTO Employees
+VALUES
+(101,'Yogesh','Developer',50000),
+(102,'Vinod','Tester',45000),
+(103,'Lokesh','Manager',70000);
+```
+
+---
+
+# ✏️ UPDATE Command
+
+The `UPDATE` statement is used to modify existing records.
+
+### Syntax
+
+```sql
+UPDATE table_name
+SET column_name = value
+WHERE condition;
+```
+
+### Example
+
+```sql
+UPDATE Employees
+SET Salary = 60000
+WHERE EmpID = 101;
+```
+
+---
+
+# ❌ DELETE Command
+
+The `DELETE` statement removes selected records from a table.
+
+### Syntax
+
+```sql
+DELETE FROM table_name
+WHERE condition;
+```
+
+### Example
+
+```sql
+DELETE FROM Employees
+WHERE EmpID = 102;
+```
+
+---
+
+# 🔍 SELECT Command
+
+The `SELECT` statement retrieves data from one or more tables.
+
+### Syntax
+
+```sql
+SELECT * FROM table_name;
+```
+
+### Example
+
+```sql
+SELECT * FROM Employees;
+```
+
+---
+
+# 📊 Difference Between DELETE, TRUNCATE, and DROP
+
+| Feature         | DELETE                 | TRUNCATE               | DROP                  |
+| --------------- | ---------------------- | ---------------------- | --------------------- |
+| Command Type    | DML                    | DDL                    | DDL                   |
+| Deletes         | Selected rows          | All rows               | Entire table/database |
+| WHERE Clause    | ✅ Yes                  | ❌ No                   | ❌ No                  |
+| Table Structure | Remains                | Remains                | Deleted               |
+| Rollback        | Possible before COMMIT | Generally not possible | Not possible          |
+| Speed           | Slow                   | Fast                   | Fastest               |
+| Auto Increment  | Not Reset              | Reset (Most DBMS)      | Removed               |
+
+---
+
+# 📝 SQL Queries Practiced
+
+## Insert Records
+
+```sql
+INSERT INTO Employees
+VALUES (104,'Rahul','HR',40000);
+```
+
+## View Records
+
+```sql
+SELECT * FROM Employees;
+```
+
+## Update Records
+
+```sql
+UPDATE Employees
+SET Salary = 55000
+WHERE EmpID = 104;
+```
+
+## Delete Records
+
+```sql
+DELETE FROM Employees
+WHERE EmpID = 104;
+```
+
+## Delete All Records
+
+```sql
+DELETE FROM Employees;
+```
+
+## Remove All Records Quickly
+
+```sql
+TRUNCATE TABLE Employees;
+```
+
+## Delete Table
+
+```sql
+DROP TABLE Employees;
+```
+
+## Delete Database
+
+```sql
+DROP DATABASE CompanyDB;
+```
+
+---
+
+# 🎯 Key Takeaways
+
+* Learned DML commands.
+* Inserted records into tables.
+* Updated existing records.
+* Deleted records using conditions.
+* Retrieved records using the `SELECT` statement.
+* Understood the differences between `DELETE`, `TRUNCATE`, and `DROP`.
+
+---
+
+# 🚀 Day 5 Complete
+
+### Topics Learned
+
+* ✅ INSERT
+* ✅ UPDATE
+* ✅ DELETE
+* ✅ SELECT
+* ✅ DELETE vs TRUNCATE vs DROP
+* ✅ SQL Query Practice
+
+### Next Topics
+
+* DCL (GRANT & REVOKE)
+* User Management
+* Transaction Control Language (TCL)
+* COMMIT
+* ROLLBACK
+* SAVEPOINT
+# 📅 Day 6 - Data Control Language (DCL)
+
+## 📚 Topics Covered
+
+### 🔐 What is DCL?
+
+**Data Control Language (DCL)** is used to manage permissions and access control in a database. It allows database administrators to grant or revoke privileges for users and roles.
+
+---
+
+# 🏗️ Database Setup
+
+* Created a new database.
+* Created tables with `AUTO_INCREMENT` and `PRIMARY KEY`.
+* Inserted sample records into tables.
+* Created a backup table using `CREATE TABLE ... AS SELECT`.
+
+---
+
+# 📊 Generated Columns
+
+Learned how to create a generated column that automatically calculates values.
+
+### Example
+
+```sql
+CREATE TABLE Products(
+    ProductID INT AUTO_INCREMENT PRIMARY KEY,
+    ProductName VARCHAR(20),
+    Price DECIMAL(10,2),
+    Quantity INT,
+    TotalAmount DECIMAL(10,2)
+    GENERATED ALWAYS AS (Price * Quantity) STORED
+);
+```
+
+---
+
+# 👨‍🎓 Student Table
+
+Created a **Students** table and inserted sample student records.
+
+### Columns
+
+* StudentID
+* Student Name
+* Mobile Number
+* Marks
+
+---
+
+# 👤 Creating Database Users
+
+### Syntax
+
+```sql
+CREATE USER username IDENTIFIED BY 'password';
+```
+
+### Examples
+
+```sql
+CREATE USER YOGESH IDENTIFIED BY 'Yogesh@29';
+
+CREATE USER VINOD IDENTIFIED BY 'varma@29';
+
+CREATE USER CHYTU IDENTIFIED BY 'LoKesh@29';
+```
+
+---
+
+# 🔑 GRANT Command
+
+Used to provide permissions to database users.
+
+### Syntax
+
+```sql
+GRANT privilege_name
+ON table_name
+TO username;
+```
+
+### Examples
+
+```sql
+GRANT SELECT, INSERT, UPDATE
+ON STUDENTS
+TO YOGESH;
+
+GRANT SELECT, DELETE
+ON STUDENTS
+TO VINOD;
+
+GRANT ALL PRIVILEGES
+ON STUDENTS
+TO CHYTU;
+```
+
+---
+
+# ❌ REVOKE Command
+
+Used to remove permissions from users.
+
+### Syntax
+
+```sql
+REVOKE privilege_name
+ON table_name
+FROM username;
+```
+
+### Examples
+
+```sql
+REVOKE INSERT, UPDATE
+ON STUDENTS
+FROM YOGESH;
+
+REVOKE DELETE
+ON STUDENTS
+FROM VINOD;
+```
+
+---
+
+# 🧪 Permission Testing
+
+Verified user permissions by logging in with different accounts.
+
+### User: YOGESH
+
+* ✅ SELECT
+* ✅ INSERT (before REVOKE)
+* ✅ UPDATE (before REVOKE)
+* ❌ INSERT (after REVOKE)
+* ❌ UPDATE (after REVOKE)
+
+---
+
+### User: VINOD
+
+* ✅ SELECT
+* ✅ DELETE (before REVOKE)
+* ❌ DELETE (after REVOKE)
+
+---
+
+# 🎯 Key Takeaways
+
+* Learned the purpose of Data Control Language (DCL).
+* Created database users.
+* Granted privileges using the `GRANT` command.
+* Removed permissions using the `REVOKE` command.
+* Practiced user authentication and access control.
+* Tested user permissions by logging in with different database accounts.
+
+---
+
+# 🚀 Day 6 Complete
+
+### Topics Learned
+
+* ✅ DCL (Data Control Language)
+* ✅ CREATE USER
+* ✅ GRANT
+* ✅ REVOKE
+* ✅ AUTO_INCREMENT
+* ✅ PRIMARY KEY
+* ✅ Generated Columns
+* ✅ User Privilege Management
+* ✅ Permission Testing
+
+### Next Topics
+
+* Transaction Control Language (TCL)
+* COMMIT
+* ROLLBACK
+* SAVEPOINT
+* SQL Constraints
+* Joins
 
 
