@@ -1279,5 +1279,254 @@ Verified user permissions by logging in with different accounts.
 * SAVEPOINT
 * SQL Constraints
 * Joins
+# 📅 Day 7 - Transaction Control Language (TCL) & Database Locking
+
+## 📚 Topics Covered
+
+### 🔹 What is TCL (Transaction Control Language)?
+
+Transaction Control Language (TCL) is used to manage transactions in a database and maintain data integrity.
+
+A **transaction** is a group of related operations executed as a single unit of work following the principle:
+
+> **"Either all operations succeed or none succeed."**
+
+A common example is a **bank fund transfer**, where the debit and credit operations must both complete successfully to maintain consistency.
+
+---
+
+# 🔄 Types of Transactions
+
+## 1. Local Transaction
+
+* All operations are executed within the same database.
+* Example: Money transfer between two accounts in the same bank.
+
+## 2. Global Transaction
+
+* Operations are executed across multiple databases.
+* Example: Money transfer between accounts in different banks.
+
+---
+
+# 🛡️ ACID Properties
+
+### 🔹 Atomicity
+
+Ensures that all operations in a transaction are completed successfully or none are applied.
+
+### 🔹 Consistency
+
+Keeps the database in a valid and consistent state before and after every transaction.
+
+### 🔹 Isolation
+
+Ensures that multiple transactions do not interfere with each other.
+
+### 🔹 Durability
+
+Once a transaction is committed, the changes remain permanent even if the system fails.
+
+---
+
+# 📌 TCL Commands
+
+## COMMIT
+
+Permanently saves all changes made during the current transaction.
+
+### Syntax
+
+```sql
+COMMIT;
+```
+
+---
+
+## ROLLBACK
+
+Reverts all changes made during the current transaction.
+
+### Syntax
+
+```sql
+ROLLBACK;
+```
+
+---
+
+## SAVEPOINT
+
+Creates a checkpoint within a transaction so you can roll back to a specific point instead of the beginning.
+
+### Syntax
+
+```sql
+SAVEPOINT savepoint_name;
+```
+
+### Rollback to Savepoint
+
+```sql
+ROLLBACK TO savepoint_name;
+```
+
+---
+
+# 🧪 SQL Queries Practiced
+
+## Start a Transaction
+
+```sql
+START TRANSACTION;
+```
+
+## Insert Records
+
+```sql
+INSERT INTO EMPLOYEE
+VALUES (111,'MALLI',60000);
+
+INSERT INTO EMPLOYEE
+VALUES (222,'ARJUN',75000);
+```
+
+## Commit Changes
+
+```sql
+COMMIT;
+```
+
+## Update Records
+
+```sql
+UPDATE EMPLOYEE
+SET EMPSALARY = 10000
+WHERE EMP = 111;
+```
+
+## Rollback Changes
+
+```sql
+ROLLBACK;
+```
+
+## Create Savepoint
+
+```sql
+SAVEPOINT SF1;
+```
+
+## Delete Record
+
+```sql
+DELETE FROM EMPLOYEE
+WHERE EMP = 111;
+```
+
+## Rollback to Savepoint
+
+```sql
+ROLLBACK TO SF1;
+```
+
+---
+
+# 🔐 Database Locking
+
+Locking is a mechanism used by databases to control concurrent access and maintain data consistency.
+
+## 1. Shared Lock
+
+* Allows multiple users to read data simultaneously.
+* Prevents updates and deletes while the lock is active.
+
+### Example
+
+```sql
+LOCK TABLES EMPLOYEE READ;
+```
+
+---
+
+## 2. Exclusive Lock
+
+* Allows only one transaction to modify data.
+* Blocks other transactions from reading (locking reads) or writing.
+
+### Example
+
+```sql
+LOCK TABLES EMPLOYEE WRITE;
+```
+
+---
+
+## Unlock Tables
+
+```sql
+UNLOCK TABLES;
+```
+
+---
+
+## 3. Intent Lock
+
+An Intent Lock is automatically managed by MySQL to indicate that row-level locks will be placed within a table.
+
+It helps improve locking efficiency and conflict detection.
+
+---
+
+# 🛠️ Hands-on Practice
+
+* Created an Employee table.
+* Started transactions using `START TRANSACTION`.
+* Inserted employee records.
+* Used `COMMIT` to save changes permanently.
+* Used `ROLLBACK` to undo transactions.
+* Created and used `SAVEPOINT`.
+* Practiced `LOCK TABLES` with READ and WRITE locks.
+* Released locks using `UNLOCK TABLES`.
+* Corrected SQL syntax errors while practicing transaction management.
+
+---
+
+# 🎯 Key Takeaways
+
+* Learned Transaction Control Language (TCL).
+* Understood Local and Global Transactions.
+* Studied ACID properties.
+* Practiced COMMIT, ROLLBACK, and SAVEPOINT.
+* Learned database locking mechanisms.
+* Explored Shared, Exclusive, and Intent Locks.
+* Improved SQL debugging through hands-on practice.
+
+---
+
+# 🚀 Day 7 Complete
+
+### Topics Learned
+
+* ✅ TCL (Transaction Control Language)
+* ✅ Transactions
+* ✅ ACID Properties
+* ✅ COMMIT
+* ✅ ROLLBACK
+* ✅ SAVEPOINT
+* ✅ Database Locking
+* ✅ Shared Lock
+* ✅ Exclusive Lock
+* ✅ Intent Lock
+* ✅ LOCK TABLES
+* ✅ UNLOCK TABLES
+
+### Next Topics
+
+* SQL Constraints
+* Joins
+* Functions
+* Views
+* Indexes
 
 
