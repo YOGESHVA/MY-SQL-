@@ -1,0 +1,581 @@
+Day-7
+-----
+TCL(Transaction Control Language)
+---------------------------------
+The Process of combing all related operations into a single unit and executuing them
+according to the rule "either all operations should be succeed or none should be succeed"
+is called Transaction management
+
+A transaction is considered a single unit of work and fallows the principle
+"either all or none"
+Example: Funds transfer.
+consider a money transfer process between two accounts
+1.Debit amount from the senders account
+2.Credit amount into the receivers account.
+
+Both operation should be executed as single transaction
+
+if the amount is debit from the senders account successfully. But crediting the recovers 
+account fails.it may lead to the data inconsistency problems.
+
+They are two types of Transaction
+1.Local Transactions
+2.Global Transactions
+
+1.Local Transaction: In Local all operations  of transactions are executed in the same database
+Example
+-------
+In local Transaction from one account to another account where both accounts belongs to the same bank.
+
+2.Global Transaction 
+-------------------
+In Global all operations  of transactions are executed in the different database
+Example
+-------
+Funds transfer from one account  to another account where both accounts belongs to the different bank
+
+Any tansaction should be follows acid Properties
+ACID Properties
+--------------
+Atomicity: All or nothing
+Consistency: the databases remains in a valid states 
+Isolation: Transaction do not interface with each other
+Durability: Committed changes are permanent
+
+TCl Commands:
+1,Commit
+2.Rollback
+3.Save Point
+
+commit
+-----
+
+What is locking
+--------------
+locking is mechanism used by the database to control access data.
+ 
+it  ensure that multiple users access the same database simultaneously the database maintains
+consistency,integrity,and prevent conflicts.
+
+1.Shared lock
+--------------
+A shared lock allows a transaction to read data.
+Multiple transactions can hold a shared lock  on the same row.
+No transaction can modify the row until all shared locks are released
+
+Characteristics
+Read Only
+Multiple user can read simultaneously
+Blocks updates and delete
+
+2.Exclusive lock
+----------------
+An Exclusive lock allows a transaction to modify data
+while on Exclusive lock exists.
+No other transaction can read using a locking read or modify that row.
+Only the transaction holding the lock can update and delete the data
+
+Characteristics
+used for Insert, update, Delete 
+only one Exclusive lock at time
+Blocks both reads(locking reads) and writes 
+
+3.INTENT Lock
+-------------
+An Intent lock is a table-level lock that indicates a transaction to place row -level
+locks
+It helps My sql  quickly determine whether a table-level lock conflicts with existing row locks.
+users do no usually create intent locks manually. InnoB manages them automatically.
+
+Real -Life Example
+Imagine a library
+Shared lock - Many students can read the same book at the same time.
+Exclusive lock - one student borrows the book, so  nobody else can read or borrow it until it is
+returned.
+
+Intent Lock - the librarian marks that someone is about to read or borrow books from a shelf,
+helping coordinate access without checking every book individually 
+ 
+Enter password: ***********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 9.3.0 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| common             |
+| ds4                |
+| employees          |
+| information_schema |
+| movie              |
+| movies             |
+| mysql              |
+| performance_schema |
+| pfs4               |
+| sale               |
+| sql_project        |
+| student            |
+| yogesh             |
+| yogi               |
++--------------------+
+14 rows in set (0.795 sec)
+
+mysql> use ds4;
+Database changed
+mysql> show tables;
++------------------+
+| Tables_in_ds4    |
++------------------+
+| backup_employees |
+| employees        |
+| products         |
+| students         |
++------------------+
+4 rows in set (0.125 sec)
+
+mysql> create table EMPLOYEE(
+    -> EMP INT PRIMARY KEY
+    -> EMPNAME VARCHAR(30)
+    -> EMPSALARY DECIMAL(10,2)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'EMPNAME VARCHAR(30)
+EMPSALARY DECIMAL(10,2)
+)' at line 3
+mysql> create table EMPLOYEE(
+    -> EMP INT PRIMARY KEY,
+    -> EMPNAME VARCHAR(30),
+    -> EMPSALARY DECIMAL(10,2),
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 5
+mysql> create table EMPLOYEE(
+    -> EMP INT PRIMARY KEY,
+    -> EMPNAME VARCHAR(30),
+    -> EMPSALARY DECIMAL(10,2)
+    -> );
+Query OK, 0 rows affected (3.199 sec)
+
+mysql> START TRANCATION;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TRANCATION' at line 1
+mysql> START TRANSACTION;
+Query OK, 0 rows affected (0.004 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES(111,'MALLI',60000');
+    '> );
+    '> ^C
+mysql> INSERT INTO EMPLOYEE VALUES(111,'MALLI',60000');
+    '> ^C
+mysql> INSERT INTO EMPLOYEE VALUES(111,'MALLI',60000');
+    '> ^C
+mysql> INSERT INTO EMPLOYEE VALUES
+    -> (111,'MALLI',60000);
+Query OK, 1 row affected (1.302 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES(222,'ARJUN',75000);
+Query OK, 1 row affected (0.007 sec)
+
+mysql> COMMIT;
+Query OK, 0 rows affected (1.327 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
++-----+---------+-----------+
+| EMP | EMPNAME | EMPSALARY |
++-----+---------+-----------+
+| 111 | MALLI   |  60000.00 |
+| 222 | ARJUN   |  75000.00 |
++-----+---------+-----------+
+2 rows in set (0.007 sec)
+
+mysql> START TRANCATION;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TRANCATION' at line 1
+mysql> START TRANSACTION;
+Query OK, 0 rows affected (0.005 sec)
+
+mysql> UPDATE EMPLOYEE SET EMPSALARY = 10000 WHERE EMP = 111;
+Query OK, 1 row affected (0.008 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM EMPLOYEE;
++-----+---------+-----------+
+| EMP | EMPNAME | EMPSALARY |
++-----+---------+-----------+
+| 111 | MALLI   |  10000.00 |
+| 222 | ARJUN   |  75000.00 |
++-----+---------+-----------+
+2 rows in set (0.007 sec)
+
+mysql> ROLLBACK
+    -> ^C
+mysql> ROLLBACK;
+Query OK, 0 rows affected (1.146 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
++-----+---------+-----------+
+| EMP | EMPNAME | EMPSALARY |
++-----+---------+-----------+
+| 111 | MALLI   |  60000.00 |
+| 222 | ARJUN   |  75000.00 |
++-----+---------+-----------+
+2 rows in set (0.007 sec)
+
+mysql> START TRANSACTION;
+Query OK, 0 rows affected (0.005 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES(333,'YOGESH',80000);
+Query OK, 1 row affected (0.008 sec)
+
+mysql> SELECT * FROM EMPLOYEES;
++-------+---------+------------+
+| EMPID | NAME    | DEPARTMENT |
++-------+---------+------------+
+|     1 | MALLI   | IT         |
+|     2 | INDU    | HR         |
+|     3 | MOUNIKA | FINANCE    |
++-------+---------+------------+
+3 rows in set (0.024 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
++-----+---------+-----------+
+| EMP | EMPNAME | EMPSALARY |
++-----+---------+-----------+
+| 111 | MALLI   |  60000.00 |
+| 222 | ARJUN   |  75000.00 |
+| 333 | YOGESH  |  80000.00 |
++-----+---------+-----------+
+3 rows in set (0.007 sec)
+
+mysql> UPDATE EMPLOYEE SET EMPSALARY =EMPSALARY+5000 WHERE EMPSALARY >=75000;
+Query OK, 2 rows affected (0.122 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> SELECT * FROM EMPLOYEE;
++-----+---------+-----------+
+| EMP | EMPNAME | EMPSALARY |
++-----+---------+-----------+
+| 111 | MALLI   |  60000.00 |
+| 222 | ARJUN   |  80000.00 |
+| 333 | YOGESH  |  85000.00 |
++-----+---------+-----------+
+3 rows in set (0.007 sec)
+
+mysql> SAVE POINT SF1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SAVE POINT SF1' at line 1
+mysql> SAVEPOINT SF1;
+Query OK, 0 rows affected (0.005 sec)
+
+mysql> DELETE FROM EMPLOYEE WHERE EMP = 111;
+Query OK, 1 row affected (0.155 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
++-----+---------+-----------+
+| EMP | EMPNAME | EMPSALARY |
++-----+---------+-----------+
+| 222 | ARJUN   |  80000.00 |
+| 333 | YOGESH  |  85000.00 |
++-----+---------+-----------+
+2 rows in set (0.007 sec)
+
+mysql> ROLLBACK TO SF1;
+Query OK, 0 rows affected (0.006 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
++-----+---------+-----------+
+| EMP | EMPNAME | EMPSALARY |
++-----+---------+-----------+
+| 111 | MALLI   |  60000.00 |
+| 222 | ARJUN   |  80000.00 |
+| 333 | YOGESH  |  85000.00 |
++-----+---------+-----------+
+3 rows in set (0.006 sec)
+
+mysql> ROLLBACK;
+Query OK, 0 rows affected (0.457 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
++-----+---------+-----------+
+| EMP | EMPNAME | EMPSALARY |
++-----+---------+-----------+
+| 111 | MALLI   |  60000.00 |
+| 222 | ARJUN   |  75000.00 |
++-----+---------+-----------+
+2 rows in set (0.007 sec)
+
+mysql> START TRANSACTION;
+Query OK, 0 rows affected (0.004 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES(333,'YOGESH',80000);
+Query OK, 1 row affected (0.008 sec)
+
+mysql> SELECT * FROM EMPLOYEES;
++-------+---------+------------+
+| EMPID | NAME    | DEPARTMENT |
++-------+---------+------------+
+|     1 | MALLI   | IT         |
+|     2 | INDU    | HR         |
+|     3 | MOUNIKA | FINANCE    |
++-------+---------+------------+
+3 rows in set (0.007 sec)
+
+mysql> UPDATE EMPLOYEE SET EMPSALARY =EMPSALARY+5000 WHERE EMPSALARY >=75000;
+Query OK, 2 rows affected (0.008 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> SELECT * FROM EMPLOYEE;
++-----+---------+-----------+
+| EMP | EMPNAME | EMPSALARY |
++-----+---------+-----------+
+| 111 | MALLI   |  60000.00 |
+| 222 | ARJUN   |  80000.00 |
+| 333 | YOGESH  |  85000.00 |
++-----+---------+-----------+
+3 rows in set (0.006 sec)
+
+mysql> SAVE POINT SF1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SAVE POINT SF1' at line 1
+mysql> SAVEPOINT SF1;
+Query OK, 0 rows affected (0.005 sec)
+
+mysql> DELETE FROM EMPLOYEE WHERE EMP = 111;
+Query OK, 1 row affected (0.007 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
++-----+---------+-----------+
+| EMP | EMPNAME | EMPSALARY |
++-----+---------+-----------+
+| 222 | ARJUN   |  80000.00 |
+| 333 | YOGESH  |  85000.00 |
++-----+---------+-----------+
+2 rows in set (0.007 sec)
+
+mysql> ROLLBACK TO SF1;
+Query OK, 0 rows affected (0.006 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
++-----+---------+-----------+
+| EMP | EMPNAME | EMPSALARY |
++-----+---------+-----------+
+| 111 | MALLI   |  60000.00 |
+| 222 | ARJUN   |  80000.00 |
+| 333 | YOGESH  |  85000.00 |
++-----+---------+-----------+
+3 rows in set (0.007 sec)
+
+mysql> COMMIT;
+Query OK, 0 rows affected (0.771 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
++-----+---------+-----------+
+| EMP | EMPNAME | EMPSALARY |
++-----+---------+-----------+
+| 111 | MALLI   |  60000.00 |
+| 222 | ARJUN   |  80000.00 |
+| 333 | YOGESH  |  85000.00 |
++-----+---------+-----------+
+3 rows in set (0.007 sec)
+
+mysql> CREATE DATABASE LOCK_DEMO;
+Query OK, 1 row affected (1.226 sec)
+
+mysql> USE LOCK_DEMO;
+Database changed
+mysql> CREATE TABLE EMPLOYEE
+    -> ( EMP_ID INT PRIMARY KEY,
+    -> EMP_NAME VARCHAR(40),
+    -> DEPARTMENT VARCHAR(50),
+    -> SALARY DECIMAL(10,2)
+    -> );
+Query OK, 0 rows affected (3.303 sec)
+
+mysql> INSERT INTO VALUES
+    -> (101,'YOGESH','IT',50000),
+    -> (102,'PRIYA','HR',45000),
+    -> (103,'KIRAN','FINANCE',55000),
+    -> (104,'SNEHA;,'TESTING',40000),
+    '> (105,'ARJUNA','DEVELOPMENT',60000);
+    '> ^C
+mysql> INSERT INTO VALUES
+    -> (101,'YOGESH','IT',50000),
+    -> (102,'PRIYA','HR',45000),
+    -> (103,'KIRAN','FINANCE',55000),
+    -> (104,'SNEHA;,'TESTING',40000),
+    '> (105,'ARJUNA','DEVELOPMENT',60000);
+    '> ^C
+mysql> INSERT INTO VALUES
+    -> (101,'YOGESH','IT',50000),
+    -> (102,'PRIYA','HR',45000),
+    -> (103,'KIRAN','FINANCE',55000),
+    -> (104,'SNEHA;,'TESTING',40000)
+    '> (105,'ARJUNA','DEVELOPMENT',60000);
+    '> ^C
+mysql> INSERT INTO  EMPLOYEE VALUES
+    -> (101,'YOGESH','IT',50000),
+    -> (102,'PRIYA','HR',45000),
+    -> (103,'KIRAN','FINANCE',55000),
+    -> (104,'SNEHA;,'TESTING',40000),
+    '> (105,'ARJUNA','DEVELOPMENT',60000);
+    '> ^C
+mysql> INSERT INTO  EMPLOYEE VALUES
+    -> (101,'YOGESH','IT',50000),
+    -> (102,'PRIYA','HR',45000),
+    -> (103,'KIRAN','FINANCE',55000),
+    -> (104,'SNEHA;,'TESTING',40000),
+    '> (105,'ARJUNA','DEVELOPMENT',60000));
+    '> (105,'ARJUNA','DEVELOPMENT',60000);
+    '>
+    '>
+    '>
+    '>
+    '>
+    '> ^C
+mysql> INSERT INTO  EMPLOYEE VALUES
+    -> (101,'YOGESH','IT',50000),
+    -> (102,'PRIYA','HR',45000),
+    -> (103,'KIRAN','FINANCE',55000),
+    -> (104,'SNEHA,'TESTING',40000),
+    '> (104,'SNEHA;^CTESTING',40000),
+mysql> INSERT INTO  EMPLOYEE VALUES
+    -> (101,'YOGESH','IT',50000),
+    -> (102,'PRIYA','HR',45000),
+    -> (103,'KIRAN','FINANCE',55000),
+    -> (104,'SNEHA','TESTING',40000),
+    -> (105,'ARJUNA','DEVELOPMENT',60000);
+Query OK, 5 rows affected (0.945 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> LOCK TABLES EMPLOYEE WRITE;
+Query OK, 0 rows affected (0.009 sec)
+
+mysql> LOCK TABLES EMPLOYEE READ;
+Query OK, 0 rows affected (0.006 sec)
+
+mysql> select * from LOCK_DEMO;
+ERROR 1100 (HY000): Table 'LOCK_DEMO' was not locked with LOCK TABLES
+mysql> USE LOCK_DEMO;
+Database changed
+mysql> SELECT * FROM EMPLOYEE;
++--------+----------+-------------+----------+
+| EMP_ID | EMP_NAME | DEPARTMENT  | SALARY   |
++--------+----------+-------------+----------+
+|    101 | YOGESH   | IT          | 50000.00 |
+|    102 | PRIYA    | HR          | 45000.00 |
+|    103 | KIRAN    | FINANCE     | 55000.00 |
+|    104 | SNEHA    | TESTING     | 40000.00 |
+|    105 | ARJUNA   | DEVELOPMENT | 60000.00 |
++--------+----------+-------------+----------+
+5 rows in set (0.009 sec)
+
+mysql> LOCK TABLES EMPLOYEE WRITE;
+Query OK, 0 rows affected (0.012 sec)
+
+mysql> UNLOCK TABLES;
+Query OK, 0 rows affected (0.006 sec)
+
+mysql> ---READ
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '---READ' at line 1
+mysql> LOCK TABLES EMPLOYEE READ;
+Query OK, 0 rows affected (0.006 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
++--------+----------+-------------+----------+
+| EMP_ID | EMP_NAME | DEPARTMENT  | SALARY   |
++--------+----------+-------------+----------+
+|    101 | YOGESH   | IT          | 65000.00 |
+|    102 | PRIYA    | HR          | 45000.00 |
+|    103 | KIRAN    | FINANCE     | 55000.00 |
+|    104 | SNEHA    | TESTING     | 40000.00 |
+|    105 | ARJUNA   | DEVELOPMENT | 60000.00 |
++--------+----------+-------------+----------+
+5 rows in set (0.006 sec)
+
+mysql> UNLOCK TABLES;
+Query OK, 0 rows affected (0.005 sec)
+
+2nd command it runs the output for lock for read and write
+Enter password: ***********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 9.3.0 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> USE LOCK_DEMO;
+Database changed
+mysql> UPDATE EMPLOYEE SET SALARY = 65000
+    -> WHERE EMP_ID = 101;
+Query OK, 1 row affected (34 min 55.175 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SLECT * FROM EMPLOYEE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SLECT * FROM EMPLOYEE' at line 1
+mysql> SELECT * FROM EMPLOYEE;
++--------+----------+-------------+----------+
+| EMP_ID | EMP_NAME | DEPARTMENT  | SALARY   |
++--------+----------+-------------+----------+
+|    101 | YOGESH   | IT          | 65000.00 |
+|    102 | PRIYA    | HR          | 45000.00 |
+|    103 | KIRAN    | FINANCE     | 55000.00 |
+|    104 | SNEHA    | TESTING     | 40000.00 |
+|    105 | ARJUNA   | DEVELOPMENT | 60000.00 |
++--------+----------+-------------+----------+
+5 rows in set (0.007 sec)
+
+Command 3 and for lock and unlock using read and write
+------------------------------------------------------
+------------------------------------------------------
+
+Enter password: ***********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 9.3.0 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use LOCK_DEMO;
+Database changed
+mysql> SELECT * FROM EMPLOYEE;
++--------+----------+-------------+----------+
+| EMP_ID | EMP_NAME | DEPARTMENT  | SALARY   |
++--------+----------+-------------+----------+
+|    101 | YOGESH   | IT          | 50000.00 |
+|    102 | PRIYA    | HR          | 45000.00 |
+|    103 | KIRAN    | FINANCE     | 55000.00 |
+|    104 | SNEHA    | TESTING     | 40000.00 |
+|    105 | ARJUNA   | DEVELOPMENT | 60000.00 |
++--------+----------+-------------+----------+
+5 rows in set (4 min 17.899 sec)
+
+mysql> USE LOCK_DEMO;
+Database changed
+mysql> UPDATE EMPLOYEE SET SALARY = 80000 WHERE EMPID = 102;
+ERROR 1054 (42S22): Unknown column 'EMPID' in 'where clause'
+
+
+
+
+
+
+
+
+
