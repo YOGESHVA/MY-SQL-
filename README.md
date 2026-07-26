@@ -1991,5 +1991,173 @@ FROM Employees;
 * GROUP BY
 * HAVING
 * Joins
+# 📅 Day 10 - SQL NULL, BETWEEN, IN & LIKE Operators
+
+## 📚 Topics Covered
+
+### 🔹 NULL Operator
+
+A **NULL** value represents missing, unknown, or unavailable data in a database. It is not equal to zero (`0`) or an empty string (`''`).
+
+### Checking NULL Values
+
+#### Find NULL values
+
+```sql
+SELECT *
+FROM Employees
+WHERE Manager_ID IS NULL;
+```
+
+#### Find NOT NULL values
+
+```sql
+SELECT *
+FROM Employees
+WHERE Manager_ID IS NOT NULL;
+```
+
+---
+
+# 🔹 BETWEEN Operator
+
+The **BETWEEN** operator is used to retrieve values within a specified range. The range is inclusive of both the starting and ending values.
+
+### Syntax
+
+```sql
+SELECT column_name
+FROM table_name
+WHERE column_name BETWEEN value1 AND value2;
+```
+
+### Example
+
+```sql
+SELECT *
+FROM Employees
+WHERE Salary BETWEEN 30000 AND 60000;
+```
+
+---
+
+# 🔹 IN Operator
+
+The **IN** operator is used to match multiple values in a single condition. It is a shorter alternative to using multiple `OR` conditions.
+
+### Syntax
+
+```sql
+SELECT column_name
+FROM table_name
+WHERE column_name IN (value1, value2, value3);
+```
+
+### Example
+
+```sql
+SELECT *
+FROM Employees
+WHERE Department IN ('IT', 'HR', 'Finance');
+```
+
+---
+
+# 🔹 LIKE Operator
+
+The **LIKE** operator is used to search for specific patterns in text values.
+
+## Wildcards
+
+| Wildcard | Description                        |
+| -------- | ---------------------------------- |
+| `%`      | Represents zero or more characters |
+| `_`      | Represents exactly one character   |
+
+### Examples
+
+Names starting with **A**
+
+```sql
+SELECT *
+FROM Employees
+WHERE Employee_Name LIKE 'A%';
+```
+
+Names ending with **N**
+
+```sql
+SELECT *
+FROM Employees
+WHERE Employee_Name LIKE '%N';
+```
+
+Names containing **AR**
+
+```sql
+SELECT *
+FROM Employees
+WHERE Employee_Name LIKE '%AR%';
+```
+
+Names with exactly 5 characters
+
+```sql
+SELECT *
+FROM Employees
+WHERE Employee_Name LIKE '_____';
+```
+
+Names whose second letter is **A**
+
+```sql
+SELECT *
+FROM Employees
+WHERE Employee_Name LIKE '_A%';
+```
+
+---
+
+# 🛠️ Hands-on Practice
+
+* Practiced identifying NULL and NOT NULL values.
+* Retrieved records using the BETWEEN operator.
+* Filtered multiple values using the IN operator.
+* Used LIKE with `%` and `_` wildcards.
+* Wrote SQL queries using different filtering conditions.
+* Improved SQL query writing through practical examples.
+
+---
+
+# 🎯 Key Takeaways
+
+* Learned how NULL values work in SQL.
+* Understood the difference between IS NULL and IS NOT NULL.
+* Practiced retrieving data using BETWEEN.
+* Used the IN operator to simplify multiple conditions.
+* Mastered pattern matching using the LIKE operator and wildcards.
+
+---
+
+# 🚀 Day 10 Complete
+
+## Topics Learned
+
+* ✅ NULL
+* ✅ IS NULL
+* ✅ IS NOT NULL
+* ✅ BETWEEN
+* ✅ IN
+* ✅ LIKE
+* ✅ Wildcards (`%` and `_`)
+* ✅ SQL Filtering Techniques
+
+### Next Topics
+
+* Aggregate Functions
+* GROUP BY
+* HAVING
+* ORDER BY
+* SQL Functions
 
 
