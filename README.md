@@ -1775,5 +1775,221 @@ FROM Products;
 * Date Functions
 * Joins
 * Views
+# 📅 Day 9 - SQL Operators & Clauses
+
+## 📚 Topics Covered
+
+### 🔹 SQL Operators
+
+SQL Operators are used to perform operations on data and filter records based on specified conditions.
+
+---
+
+# ➕ Arithmetic Operators
+
+Used to perform mathematical calculations.
+
+### Operators
+
+* `+` Addition
+* `-` Subtraction
+* `*` Multiplication
+* `/` Division
+* `%` Modulus
+
+### Example
+
+```sql
+SELECT ProductName,
+       Price,
+       Price * Quantity AS TotalPrice
+FROM Products;
+```
+
+---
+
+# 🔍 Comparison Operators
+
+Used to compare values.
+
+### Operators
+
+* `=`
+* `!=`
+* `<>`
+* `>`
+* `<`
+* `>=`
+* `<=`
+
+### Example
+
+```sql
+SELECT *
+FROM Employees
+WHERE Salary > 50000;
+```
+
+---
+
+# ⚡ Logical Operators
+
+Used to combine multiple conditions.
+
+### Operators
+
+* AND
+* OR
+* NOT
+
+### Examples
+
+```sql
+SELECT *
+FROM Employees
+WHERE Department='IT'
+AND Salary > 50000;
+```
+
+```sql
+SELECT *
+FROM Employees
+WHERE Department='HR'
+OR Department='Finance';
+```
+
+---
+
+# 📌 Special Operators
+
+### BETWEEN
+
+```sql
+SELECT *
+FROM Employees
+WHERE Salary BETWEEN 30000 AND 60000;
+```
+
+### IN
+
+```sql
+SELECT *
+FROM Employees
+WHERE Department IN ('IT','HR');
+```
+
+### LIKE
+
+```sql
+SELECT *
+FROM Employees
+WHERE EmployeeName LIKE 'A%';
+```
+
+### IS NULL
+
+```sql
+SELECT *
+FROM Employees
+WHERE ManagerID IS NULL;
+```
+
+---
+
+# 📋 SQL Clauses
+
+## WHERE Clause
+
+Filters records based on a condition.
+
+```sql
+SELECT *
+FROM Employees
+WHERE Salary > 50000;
+```
+
+---
+
+## ORDER BY Clause
+
+Sorts records in ascending or descending order.
+
+```sql
+SELECT *
+FROM Employees
+ORDER BY Salary DESC;
+```
+
+---
+
+## LIMIT Clause
+
+Returns a limited number of records.
+
+```sql
+SELECT *
+FROM Employees
+LIMIT 5;
+```
+
+---
+
+## DISTINCT Clause
+
+Returns only unique values.
+
+```sql
+SELECT DISTINCT Department
+FROM Employees;
+```
+
+---
+
+# 🛠️ Hands-on Practice
+
+* Practiced Arithmetic Operators.
+* Used Comparison Operators in queries.
+* Combined conditions using AND, OR, and NOT.
+* Worked with BETWEEN, IN, LIKE, and IS NULL.
+* Retrieved unique records using DISTINCT.
+* Sorted data using ORDER BY.
+* Limited query results using LIMIT.
+
+---
+
+# 🎯 Key Takeaways
+
+* Learned SQL Operators.
+* Understood Comparison and Logical Operators.
+* Practiced Special Operators.
+* Used SQL Clauses to retrieve filtered data.
+* Improved SQL query writing skills.
+
+---
+
+# 🚀 Day 9 Complete
+
+### Topics Learned
+
+* ✅ Arithmetic Operators
+* ✅ Comparison Operators
+* ✅ Logical Operators
+* ✅ BETWEEN
+* ✅ IN
+* ✅ LIKE
+* ✅ IS NULL
+* ✅ WHERE
+* ✅ ORDER BY
+* ✅ DISTINCT
+* ✅ LIMIT
+
+### Next Topics
+
+* Aggregate Functions
+* String Functions
+* Date Functions
+* GROUP BY
+* HAVING
+* Joins
 
 
