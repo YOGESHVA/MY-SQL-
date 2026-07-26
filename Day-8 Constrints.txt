@@ -1,0 +1,394 @@
+Constraints
+-----------
+-----------
+Constraints are rules applied to the table columns in MySQL to ensure that only valid 
+and accurate data os stored in the database.
+
+in simple words:
+Constraints = Rules that control the data entered into a table
+
+Why do we use constraints
+-------------------------
+-------------------------
+1.Maintain data intergrity
+2.prevent invalid data entry.
+3.Avoid duplicate records.
+4.Ensure relationship between tables.
+5.Make the database reliable and consistent.
+
+1.Not null :It does not  allow null values
+EX:create table students_1(
+    -> sno int not null,
+    -> sname varchar(30),
+    -> marks int(3)
+    -> );
+
+insert into students_1 values(111,'yogesh',98); #It insert into values 
+Query OK, 1 row affected (0.957 sec)
+
+mysql> insert into students_1 values(null,'mahesh',98); #it not insert because they does not null values
+ERROR 1048 (23000): Column 'sno' cannot be null
+mysql> insert into students_1 values(111,'mahesh',78); #it does not null values but it allows duplicates.
+Query OK, 1 row affected (1.726 sec)
+
+select * from students_1;
++-----+--------+-------+
+| sno | sname  | marks |
++-----+--------+-------+
+| 111 | yogesh |    98 |
+| 111 | mahesh |    78 |
++-----+--------+-------+
+
+
+2.Unique:It does not allow duplicate values
+ create table students_2(
+    -> sno int unique,
+    -> sname varchar(30),
+    -> marks int(3)
+    -> );
+Query OK, 0 rows affected, 1 warning (6.317 sec)
+
+mysql> insert into students_2 values (101,'Sunny',56); #insert into values
+Query OK, 1 row affected (1.238 sec)
+
+mysql> insert into students_2 values (null,'Sunny',66); #insert into null values 
+Query OK, 1 row affected (8.590 sec)
+
+mysql> insert into students_2 values (null,'bunny',99); #insert into another null values
+Query OK, 1 row affected (1.340 sec)
+
+mysql> insert into students_2 values (101,'chinni',100); #it will does not allow duplicates values  but it allow null values 
+ERROR 1062 (23000): Duplicate entry '101' for key 'students_2.sno'
+mysql> select * from students_2;
++------+-------+-------+
+| sno  | sname | marks |
++------+-------+-------+
+|  101 | Sunny |    56 |
+| NULL | Sunny |    66 |
+| NULL | bunny |    99 |
++------+-------+-------+
+3 rows in set (0.008 sec)
+
+
+
+
+
+
+3.Primary key: It is combination of unique+ not null: It does not allow duplicate and does not allow null values
+ create table mmp(
+    -> emp_id char(5) primary key,
+    -> emp_name varchar(30),
+    -> emp_salary decimal(10,2));
+^C -- query aborted
+Query OK, 0 rows affected (10 min 58.640 sec)
+
+ insert into mmp values('emp01','maheshbbu',30000);
+Query OK, 1 row affected (5.291 sec)
+
+mysql> insert into mmp values('emp02','maheshbbu',30000);
+Query OK, 1 row affected (6.552 sec)
+
+mysql> select * from mmp;
++--------+-----------+------------+
+| emp_id | emp_name  | emp_salary |
++--------+-----------+------------+
+| emp01  | maheshbbu |   30000.00 |
+| emp02  | maheshbbu |   30000.00 |
++--------+-----------+------------+
+2 rows in set (0.008 sec)
+
+mysql> insert into mmp values(null,'maheshbbu',30000); #In primary key it does not take null values
+ERROR 1048 (23000): Column 'emp_id' cannot be null     
+
+ insert into mmp values('emp02','maheshbbu',30000); #In primary key it does not take duplicate values
+ERROR 1062 (23000): Duplicate entry 'emp02' for key 'mmp.PRIMARY'
+
+
+
+
+
+
+
+
+4.Composite Key: combination of Multiple of Primary Keys only table value
+
+create table cricketers(
+    -> player_id char(5),
+    -> player_name varchar(30),
+    -> score int,
+    -> primary key (player_id,player_name)); #composite key
+
+insert into cricketers values (101,'rohit',100);
+Query OK, 1 row affected (1.412 sec)
+
+mysql> insert into cricketers values (102,'dhoni',99);
+Query OK, 1 row affected (15.888 sec)
+
+ insert into cricketers values (102,'yuvarj',98); #it is form dict (key,values pair so same key,value then it will error)
+                                                  #we can take values same but name different so that's why insert same key,but value is different.
+Query OK, 1 row affected (5.786 sec)
+
+mysql> select * from cricketers;
++-----------+-------------+-------+
+| player_id | player_name | score |
++-----------+-------------+-------+
+| 101       | rohit       |   100 |
+| 102       | dhoni       |    99 |
+| 102       | yuvarj      |    98 |
++-----------+-------------+-------+
+3 rows in set (0.008 sec)
+
+
+
+
+
+
+5.Foregin key: Relationship  between two tables is called Foreign key
+
+
+
+6.check:It check the values based upon condition
+CREATE TABLE exams (
+    student_id INT,
+    marks INT CHECK (marks BETWEEN 0 AND 100)
+);
+Valid Records
+INSERT INTO exams VALUES
+(101,85);
+
+INSERT INTO exams VALUES
+(102,65); #invalid record
+Invalid Record
+INSERT INTO exams VALUES
+(103,120);
+Output
+ERROR:
+Check constraint violated
+
+
+
+
+
+
+
+
+
+
+7.default:The DEFAULT constraint automatically assigns a predefined value if no value is provided during insertion.
+Example
+CREATE TABLE customers (
+    customer_id INT PRIMARY KEY,
+    customer_name VARCHAR(50),
+    city VARCHAR(50) DEFAULT 'Hyderabad'
+);
+Insert Without City
+INSERT INTO customers(customer_id, customer_name)
+VALUES
+(101,'Ravi');
+View Table
+SELECT * FROM customers;
+Output
+customer_id	customer_name	city
+101	Ravi	Hyderabad
+________________________________________
+Insert With City
+INSERT INTO customers VALUES
+(102,'Priya','Bangalore');
+Output
+customer_id	customer_name	city
+101	Ravi	Hyderabad
+102	Priya	Bangalore
+
+
+
+
+8.Auto Increment it working in numerical
+
+5.Foreign key: Relationship  between two tables is called Foreign key
+Is a used to link two tables together.
+A Foreign key is a field (or collection of felids) in one table that refers to the Primary key in Another table
+
+The table containing the foreign key is called the child table. and the table containing the candidate key
+is called as referenced table or parent table
+
+
+What are Referential Actions
+---------------------------
+referential defines what happens to child table data when parent table data is 
+deleted or update 
+
+on Delete Cascade
+on update cascade
+
+on delete set null;
+on update set null;
+
+
+Operators: It is special symbol 
+
+Database changed
+mysql> CREATE TABLE Products (
+    ->  id INT,
+    ->  name VARCHAR(100),
+    ->  price DECIMAL(10,2),
+    ->  qty INT
+    ->  );
+Query OK, 0 rows affected (4.902 sec)
+
+mysql> INSERT INTO Products VALUES
+    ->  (1, 'Pen', 10.00, 100),
+    ->  (2, 'Notebook', 25.00, 50),
+    ->  (3, 'Pencil', 5.00, 200),
+    ->  (4, 'Eraser', 3.00, 300),
+    ->  (5, 'Marker', 15.00, 80),
+    ->  (6, 'Scale', 20.00, 150),
+    ->  (7, 'Sharpener', 8.00, 120),
+    ->  (8, 'Geometry Box', 120.00, 40),
+    ->  (9, 'Sketch Pen', 60.00, 75),
+    ->  (10, 'Crayons', 90.00, 55);
+Query OK, 10 rows affected (1.134 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> select * from Products;
++------+--------------+--------+------+
+| id   | name         | price  | qty  |
++------+--------------+--------+------+
+|    1 | Pen          |  10.00 |  100 |
+|    2 | Notebook     |  25.00 |   50 |
+|    3 | Pencil       |   5.00 |  200 |
+|    4 | Eraser       |   3.00 |  300 |
+|    5 | Marker       |  15.00 |   80 |
+|    6 | Scale        |  20.00 |  150 |
+|    7 | Sharpener    |   8.00 |  120 |
+|    8 | Geometry Box | 120.00 |   40 |
+|    9 | Sketch Pen   |  60.00 |   75 |
+|   10 | Crayons      |  90.00 |   55 |
++------+--------------+--------+------+
+10 rows in set (0.007 sec)
+
+mysql> select name,price,price(price * 0.12) as price_with_tax from products;
+ERROR 1305 (42000): FUNCTION v.price does not exist
+mysql> select name,price,price+(price * 0.12) as price_with_tax from Products;
++--------------+--------+----------------+
+| name         | price  | price_with_tax |
++--------------+--------+----------------+
+| Pen          |  10.00 |        11.2000 |
+| Notebook     |  25.00 |        28.0000 |
+| Pencil       |   5.00 |         5.6000 |
+| Eraser       |   3.00 |         3.3600 |
+| Marker       |  15.00 |        16.8000 |
+| Scale        |  20.00 |        22.4000 |
+| Sharpener    |   8.00 |         8.9600 |
+| Geometry Box | 120.00 |       134.4000 |
+| Sketch Pen   |  60.00 |        67.2000 |
+| Crayons      |  90.00 |       100.8000 |
++--------------+--------+----------------+
+10 rows in set (0.008 sec)
+
+mysql> select name,price,(price - 5) as discounted_price;
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+mysql> select name,price,(price - 5) as discounted_price from Products;
++--------------+--------+------------------+
+| name         | price  | discounted_price |
++--------------+--------+------------------+
+| Pen          |  10.00 |             5.00 |
+| Notebook     |  25.00 |            20.00 |
+| Pencil       |   5.00 |             0.00 |
+| Eraser       |   3.00 |            -2.00 |
+| Marker       |  15.00 |            10.00 |
+| Scale        |  20.00 |            15.00 |
+| Sharpener    |   8.00 |             3.00 |
+| Geometry Box | 120.00 |           115.00 |
+| Sketch Pen   |  60.00 |            55.00 |
+| Crayons      |  90.00 |            85.00 |
++--------------+--------+------------------+
+10 rows in set (0.006 sec)
+
+mysql> select name,price,
+    -> (price * qty) as total_price;
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+mysql> select name,price,(price * qty) as total_product from Products;
++--------------+--------+---------------+
+| name         | price  | total_product |
++--------------+--------+---------------+
+| Pen          |  10.00 |       1000.00 |
+| Notebook     |  25.00 |       1250.00 |
+| Pencil       |   5.00 |       1000.00 |
+| Eraser       |   3.00 |        900.00 |
+| Marker       |  15.00 |       1200.00 |
+| Scale        |  20.00 |       3000.00 |
+| Sharpener    |   8.00 |        960.00 |
+| Geometry Box | 120.00 |       4800.00 |
+| Sketch Pen   |  60.00 |       4500.00 |
+| Crayons      |  90.00 |       4950.00 |
++--------------+--------+---------------+
+10 rows in set (0.008 sec)
+
+mysql> select name,price,(price * 10) as total_price from Products;
++--------------+--------+-------------+
+| name         | price  | total_price |
++--------------+--------+-------------+
+| Pen          |  10.00 |      100.00 |
+| Notebook     |  25.00 |      250.00 |
+| Pencil       |   5.00 |       50.00 |
+| Eraser       |   3.00 |       30.00 |
+| Marker       |  15.00 |      150.00 |
+| Scale        |  20.00 |      200.00 |
+| Sharpener    |   8.00 |       80.00 |
+| Geometry Box | 120.00 |     1200.00 |
+| Sketch Pen   |  60.00 |      600.00 |
+| Crayons      |  90.00 |      900.00 |
++--------------+--------+-------------+
+10 rows in set (0.007 sec)
+
+mysql> select name,price(qty % 50 !=0) as total quantity from Products;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'quantity from Products' at line 1
+mysql> select name,price,qty,(qty % 50 !=0) as total quantity from Products;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'quantity from Products' at line 1
+mysql> select name,price,qty,(qty % 50 !=0) as total_quantity from Products;
++--------------+--------+------+----------------+
+| name         | price  | qty  | total_quantity |
++--------------+--------+------+----------------+
+| Pen          |  10.00 |  100 |              0 |
+| Notebook     |  25.00 |   50 |              0 |
+| Pencil       |   5.00 |  200 |              0 |
+| Eraser       |   3.00 |  300 |              0 |
+| Marker       |  15.00 |   80 |              1 |
+| Scale        |  20.00 |  150 |              0 |
+| Sharpener    |   8.00 |  120 |              1 |
+| Geometry Box | 120.00 |   40 |              1 |
+| Sketch Pen   |  60.00 |   75 |              1 |
+| Crayons      |  90.00 |   55 |              1 |
++--------------+--------+------+----------------+
+10 rows in set (0.145 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
