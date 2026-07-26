@@ -1528,5 +1528,252 @@ It helps improve locking efficiency and conflict detection.
 * Functions
 * Views
 * Indexes
+# 📅 Day 8 - SQL Constraints & Operators
+
+## 📚 Topics Covered
+
+### 🔹 What are Constraints?
+
+Constraints are rules applied to table columns to ensure that only valid and accurate data is stored in the database.
+
+### Why do we use Constraints?
+
+* Maintain data integrity
+* Prevent invalid data entry
+* Avoid duplicate records
+* Ensure relationships between tables
+* Make the database reliable and consistent
+
+---
+
+# 🔒 Types of Constraints
+
+## 1. NOT NULL
+
+Prevents NULL values from being inserted into a column.
+
+### Example
+
+```sql
+CREATE TABLE students_1(
+    sno INT NOT NULL,
+    sname VARCHAR(30),
+    marks INT
+);
+```
+
+---
+
+## 2. UNIQUE
+
+Ensures that duplicate values are not allowed, while NULL values are generally permitted.
+
+### Example
+
+```sql
+CREATE TABLE students_2(
+    sno INT UNIQUE,
+    sname VARCHAR(30),
+    marks INT
+);
+```
+
+---
+
+## 3. PRIMARY KEY
+
+A combination of **NOT NULL** and **UNIQUE**.
+
+* Does not allow NULL values.
+* Does not allow duplicate values.
+
+### Example
+
+```sql
+CREATE TABLE Employee(
+    emp_id CHAR(5) PRIMARY KEY,
+    emp_name VARCHAR(30),
+    emp_salary DECIMAL(10,2)
+);
+```
+
+---
+
+## 4. COMPOSITE KEY
+
+A Primary Key created using multiple columns.
+
+### Example
+
+```sql
+CREATE TABLE Cricketers(
+    player_id CHAR(5),
+    player_name VARCHAR(30),
+    score INT,
+    PRIMARY KEY(player_id, player_name)
+);
+```
+
+---
+
+## 5. FOREIGN KEY
+
+A Foreign Key creates a relationship between two tables.
+
+### Example
+
+```sql
+CREATE TABLE Orders(
+    order_id INT PRIMARY KEY,
+    customer_id INT,
+    FOREIGN KEY(customer_id)
+    REFERENCES Customers(customer_id)
+);
+```
+
+---
+
+## Referential Actions
+
+* ON DELETE CASCADE
+* ON UPDATE CASCADE
+* ON DELETE SET NULL
+* ON UPDATE SET NULL
+
+---
+
+## 6. CHECK
+
+Allows only values that satisfy a specified condition.
+
+### Example
+
+```sql
+CREATE TABLE Exams(
+    student_id INT,
+    marks INT CHECK(marks BETWEEN 0 AND 100)
+);
+```
+
+---
+
+## 7. DEFAULT
+
+Assigns a default value when no value is provided.
+
+### Example
+
+```sql
+CREATE TABLE Customers(
+    customer_id INT PRIMARY KEY,
+    customer_name VARCHAR(50),
+    city VARCHAR(50) DEFAULT 'Hyderabad'
+);
+```
+
+---
+
+## 8. AUTO_INCREMENT
+
+Automatically generates unique numeric values for a column.
+
+### Example
+
+```sql
+CREATE TABLE Employees(
+    emp_id INT AUTO_INCREMENT PRIMARY KEY,
+    emp_name VARCHAR(50)
+);
+```
+
+---
+
+# ➕ SQL Operators Practice
+
+Created a **Products** table and practiced arithmetic operations.
+
+### Examples
+
+Calculate price with 12% tax
+
+```sql
+SELECT name,
+       price,
+       price + (price * 0.12) AS price_with_tax
+FROM Products;
+```
+
+Discounted Price
+
+```sql
+SELECT name,
+       price,
+       (price - 5) AS discounted_price
+FROM Products;
+```
+
+Total Product Value
+
+```sql
+SELECT name,
+       price,
+       (price * qty) AS total_product
+FROM Products;
+```
+
+Multiply Price
+
+```sql
+SELECT name,
+       price,
+       (price * 10) AS total_price
+FROM Products;
+```
+
+Modulo Operator
+
+```sql
+SELECT name,
+       price,
+       qty,
+       (qty % 50 != 0) AS total_quantity
+FROM Products;
+```
+
+---
+
+# 🎯 Key Takeaways
+
+* Learned SQL Constraints.
+* Practiced NOT NULL, UNIQUE, PRIMARY KEY, COMPOSITE KEY, FOREIGN KEY, CHECK, DEFAULT, and AUTO_INCREMENT.
+* Understood Referential Integrity and Referential Actions.
+* Worked with arithmetic and modulo operators.
+* Practiced SQL queries and corrected syntax errors during execution.
+
+---
+
+# 🚀 Day 8 Complete
+
+### Topics Learned
+
+* ✅ NOT NULL
+* ✅ UNIQUE
+* ✅ PRIMARY KEY
+* ✅ COMPOSITE KEY
+* ✅ FOREIGN KEY
+* ✅ CHECK
+* ✅ DEFAULT
+* ✅ AUTO_INCREMENT
+* ✅ Referential Actions
+* ✅ SQL Operators
+
+### Next Topics
+
+* SQL Functions
+* Aggregate Functions
+* String Functions
+* Date Functions
+* Joins
+* Views
 
 
