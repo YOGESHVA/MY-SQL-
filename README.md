@@ -2159,5 +2159,59 @@ WHERE Employee_Name LIKE '_A%';
 * HAVING
 * ORDER BY
 * SQL Functions
+# 📅 Day 11 - SQL Learning Journey
+
+## 📚 Topics Covered
+
+Today, I continued strengthening my SQL skills by learning new concepts and practicing different SQL queries. I focused on understanding how SQL helps retrieve, filter, and manipulate data efficiently in relational databases.
+
+### Topics Learned
+
+* ✅ Practiced SQL queries
+* ✅ Improved data retrieval techniques
+* ✅ Applied filtering conditions
+* ✅ Solved hands-on SQL exercises
+* ✅ Strengthened database concepts
+
+---
+
+## 🛠️ Hands-on Practice
+
+* Wrote multiple SQL queries.
+* Practiced retrieving records using different conditions.
+* Improved query-writing speed and accuracy.
+* Solved SQL practice problems.
+* Enhanced understanding of relational database concepts.
+
+---
+
+## 🎯 Key Takeaways
+
+* Gained more confidence in writing SQL queries.
+* Improved understanding of database operations.
+* Learned efficient ways to retrieve and filter data.
+* Continued building a strong foundation in SQL.
+
+---
+
+# 🚀 Day 11 Complete
+
+## Skills Practiced
+
+* ✅ SQL Query Writing
+* ✅ Data Retrieval
+* ✅ Data Filtering
+* ✅ Database Concepts
+* ✅ Hands-on SQL Practice
+
+### Next Topics
+
+* More advanced SQL concepts
+* Functions and clauses
+* Real-world SQL query practice
+
+---
+
+Thanks for visiting my repository! Follow my **20 Days SQL Challenge** to track my daily learning journey.
 
 
