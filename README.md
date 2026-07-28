@@ -2214,4 +2214,174 @@ Today, I continued strengthening my SQL skills by learning new concepts and prac
 
 Thanks for visiting my repository! Follow my **20 Days SQL Challenge** to track my daily learning journey.
 
+# 📅 Day 12 – SQL GROUP BY & Set Operators
+
+## 📚 Topics Covered
+
+Today, I learned about the **GROUP BY** clause and **SQL Set Operators**, which are used to organize data into groups and combine the results of multiple SQL queries.
+
+---
+
+# 🔹 GROUP BY Clause
+
+The **GROUP BY** clause groups rows that have the same values in one or more columns. It is commonly used with aggregate functions.
+
+### Syntax
+
+```sql
+SELECT column_name, aggregate_function(column_name)
+FROM table_name
+GROUP BY column_name;
+```
+
+### Examples
+
+#### Average Salary by Department
+
+```sql
+SELECT Department, AVG(Salary) AS Average_Salary
+FROM Employees
+GROUP BY Department;
+```
+
+#### Maximum Salary by Department
+
+```sql
+SELECT Department, MAX(Salary) AS Maximum_Salary
+FROM Employees
+GROUP BY Department;
+```
+
+#### Minimum Salary by Department
+
+```sql
+SELECT Department, MIN(Salary) AS Minimum_Salary
+FROM Employees
+GROUP BY Department;
+```
+
+#### Total Salary by Department
+
+```sql
+SELECT Department, SUM(Salary) AS Total_Salary
+FROM Employees
+GROUP BY Department;
+```
+
+#### Count Employees by Department
+
+```sql
+SELECT Department, COUNT(*) AS Total_Employees
+FROM Employees
+GROUP BY Department;
+```
+
+---
+
+# 🔹 SQL Set Operators
+
+Set Operators are used to combine the results of two or more `SELECT` statements.
+
+## Rules for Set Operators
+
+* Both queries must have the same number of columns.
+* Corresponding columns must have compatible data types.
+* The order of columns should be the same.
+
+---
+
+## 1. UNION
+
+Returns only **unique** rows from both queries.
+
+```sql
+SELECT City FROM Customers
+UNION
+SELECT City FROM Suppliers;
+```
+
+---
+
+## 2. UNION ALL
+
+Returns **all rows**, including duplicates.
+
+```sql
+SELECT City FROM Customers
+UNION ALL
+SELECT City FROM Suppliers;
+```
+
+---
+
+## 3. INTERSECT
+
+Returns only the rows that exist in **both** queries.
+
+```sql
+SELECT City FROM Customers
+INTERSECT
+SELECT City FROM Suppliers;
+```
+
+---
+
+## 4. EXCEPT (or MINUS in Oracle)
+
+Returns rows from the first query that are **not present** in the second query.
+
+```sql
+SELECT City FROM Customers
+EXCEPT
+SELECT City FROM Suppliers;
+```
+
+---
+
+# 🛠️ Hands-on Practice
+
+* Practiced GROUP BY with aggregate functions.
+* Generated department-wise reports.
+* Combined query results using UNION and UNION ALL.
+* Found common records using INTERSECT.
+* Retrieved unmatched records using EXCEPT.
+
+---
+
+# 🎯 Key Takeaways
+
+* Learned to summarize grouped data using GROUP BY.
+* Used COUNT(), SUM(), AVG(), MIN(), and MAX() with GROUP BY.
+* Understood the difference between UNION and UNION ALL.
+* Learned how INTERSECT returns common records.
+* Practiced EXCEPT to identify unique records.
+
+---
+
+# 🚀 Day 12 Complete
+
+## Topics Learned
+
+* ✅ GROUP BY
+* ✅ COUNT()
+* ✅ SUM()
+* ✅ AVG()
+* ✅ MIN()
+* ✅ MAX()
+* ✅ UNION
+* ✅ UNION ALL
+* ✅ INTERSECT
+* ✅ EXCEPT (MINUS)
+
+### Next Topics
+
+* HAVING Clause
+* ORDER BY
+* SQL Joins
+* Subqueries
+* Views
+
+Happy Learning! 🚀
+
+**#20DaysOfSQLChallenge**
 
